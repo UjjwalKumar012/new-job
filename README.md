@@ -1,25 +1,47 @@
-# New Job — Job Discovery Frontend
+# New Job
 
-A responsive React + TypeScript frontend practice project with sample job listings, text search, location filtering, work-mode filtering, and an empty state.
+New Job is a job listing application built with React, TypeScript, and Vite.
 
-## Requirements
-- Node.js LTS
-- npm
+## Features
 
-## Run locally
+- Browse job listings
+- Search and filter jobs
+- View job details
+- Save jobs
+- Track job applications
+- Responsive user interface
+
+## Tech Stack
+
+- React
+- TypeScript
+- Vite
+- CSS
+- React Router
+- MSW for mock API development
+
+## Getting Started
+
+Install dependencies:
+
 ```bash
 npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
-Open the local URL printed by Vite.
 
-## Validate
+Run tests:
+
 ```bash
-npx tsc --noEmit
-npm run build
+npm run test
 ```
 
-## Notes
-- The job records are fictional sample data.
-- This is a frontend demo, not a live recruitment service.
-- The “View Details” button is a placeholder alert; a real details page is outside this first milestone.
+Build for production:
+
+```bash
+npm run build
+```
