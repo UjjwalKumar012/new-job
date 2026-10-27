@@ -9,7 +9,7 @@ export default function handler(request: Request): Response {
     );
   }
 
-  const url = new URL(request.url);
+  const url = new URL(request.url, "https://vercel.local");
   const segments = url.pathname.split("/");
   const id = decodeURIComponent(segments[segments.length - 1] ?? "");
 

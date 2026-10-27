@@ -9,7 +9,7 @@ export default function handler(request: Request): Response {
     );
   }
 
-  const url = new URL(request.url);
+ const url = new URL(request.url, "https://vercel.local");
   const search = (url.searchParams.get("search") ?? "").toLowerCase();
   const location = url.searchParams.get("location") ?? "";
   const workMode = url.searchParams.get("workMode") ?? "";
