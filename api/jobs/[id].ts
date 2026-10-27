@@ -1,5 +1,5 @@
 
-import { jobs } from "../../src/data/jobs.ts";
+import { jobs } from "../../src/data/jobs.js";
 
 export default function handler(request: Request): Response {
   if (request.method !== "GET") {
