@@ -8,13 +8,18 @@ export default function handler(
 ) {
   if (request.method !== "GET") {
     response.setHeader("Allow", "GET");
-
     return response.status(405).json({
       message: "Method not allowed",
     });
   }
 
-  const id = String(request.query.id ?? "");
+  const id = request.query.id;
+
+  if (typeof id !== "string") {
+    return response.status(400).json({
+      message: "Invalid job ID",
+    });
+  }
 
   const job = jobs.find((item) => item.id === id);
 
