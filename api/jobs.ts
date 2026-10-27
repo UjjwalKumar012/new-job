@@ -1,18 +1,21 @@
 
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { jobs } from "../src/data/jobs.js";
 
-export default function handler(request: Request): Response {
+export default function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
   if (request.method !== "GET") {
-    return Response.json(
-      { message: "Method not allowed" },
-      { status: 405, headers: { Allow: "GET" } }
-    );
+    response.setHeader("Allow", "GET");
+    return response.status(405).json({
+      message: "Method not allowed",
+    });
   }
 
- const url = new URL(request.url, "https://vercel.local");
-  const search = (url.searchParams.get("search") ?? "").toLowerCase();
-  const location = url.searchParams.get("location") ?? "";
-  const workMode = url.searchParams.get("workMode") ?? "";
+  const search = String(request.query.search ?? "").toLowerCase();
+  const location = String(request.query.location ?? "");
+  const workMode = String(request.query.workMode ?? "");
 
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
@@ -29,5 +32,5 @@ export default function handler(request: Request): Response {
     );
   });
 
-  return Response.json(filteredJobs);
+  return response.status(200).json(filteredJobs);
 }

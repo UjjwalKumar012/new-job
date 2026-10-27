@@ -1,26 +1,28 @@
 
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { jobs } from "../../src/data/jobs.js";
 
-export default function handler(request: Request): Response {
+export default function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
   if (request.method !== "GET") {
-    return Response.json(
-      { message: "Method not allowed" },
-      { status: 405, headers: { Allow: "GET" } }
-    );
+    response.setHeader("Allow", "GET");
+
+    return response.status(405).json({
+      message: "Method not allowed",
+    });
   }
 
-  const url = new URL(request.url, "https://vercel.local");
-  const segments = url.pathname.split("/");
-  const id = decodeURIComponent(segments[segments.length - 1] ?? "");
+  const id = String(request.query.id ?? "");
 
   const job = jobs.find((item) => item.id === id);
 
   if (!job) {
-    return Response.json(
-      { message: "Job not found" },
-      { status: 404 }
-    );
+    return response.status(404).json({
+      message: "Job not found",
+    });
   }
 
-  return Response.json(job);
+  return response.status(200).json(job);
 }
